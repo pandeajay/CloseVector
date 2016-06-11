@@ -1,0 +1,10 @@
+For Vector_Id_01 : Close points are 	 Vector_Id_08=6.48      Vector_Id_09=6.63      Vector_Id_07=6.63        
+For Vector_Id_03 : Close points are 	 Vector_Id_09=1.41      Vector_Id_06=1.41      Vector_Id_07=1.41        
+For Vector_Id_02 : Close points are 	 Vector_Id_08=5.48      Vector_Id_06=6.16      Vector_Id_10=6.24        
+For Vector_Id_05 : Close points are 	 Vector_Id_08=1      Vector_Id_07=1      Vector_Id_06=1        
+For Vector_Id_04 : Close points are 	 Vector_Id_08=1      Vector_Id_07=1      Vector_Id_06=1        
+For Vector_Id_01 : Close points are 	 Vector_Id_08=6.48      Vector_Id_09=6.63      Vector_Id_07=6.63        
+For Vector_Id_03 : Close points are 	 Vector_Id_09=1.41      Vector_Id_06=1.41      Vector_Id_07=1.41        
+For Vector_Id_02 : Close points are 	 Vector_Id_08=5.48      Vector_Id_06=6.16      Vector_Id_10=6.24        
+For Vector_Id_05 : Close points are 	 Vector_Id_08=1      Vector_Id_07=1      Vector_Id_06=1        
+For Vector_Id_04 : Close points are 	 Vector_Id_08=1      Vector_Id_07=1      Vector_Id_06=1        
