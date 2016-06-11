@@ -22,8 +22,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import src.ClosePointUtility;
-import src.impl.ClostPointUtilityImpl;
+import src.ClosePointFinder;
+import src.impl.ClosePointFinderImpl;
 import src.model.Result;
 
 /**
@@ -32,7 +32,7 @@ import src.model.Result;
  */
 public class TestClosePoints extends TestCase {
 	String newLine = System.getProperty("line.separator");
-	ClosePointUtility closepoints = new ClostPointUtilityImpl();
+	ClosePointFinder closepoints = new ClosePointFinderImpl();
 	List<String> records = new ArrayList<String>();
 
 	/**

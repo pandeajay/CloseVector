@@ -1,6 +1,6 @@
 package src;
 
-public interface ClosePointUtility {
+public interface ClosePointFinder {
 
 	void closePoints(String file, int levels) throws Exception;
 

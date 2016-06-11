@@ -1,10 +1,11 @@
-import src.ClosePointUtility;
-import src.impl.ClostPointUtilityImpl;
+import src.ClosePointFinder;
+import src.impl.ClosePointFinderImpl;
 import src.impl.Logger;
 
 public class ClosePoints {
 
 	public static void main(String[] args) {
+		System.out.println("Usuage : Needs to input. First file path and levels of close points needed.");
 		
 		//validate inputs
 		if(args.length != 2){
@@ -14,7 +15,7 @@ public class ClosePoints {
 		
 		//process
 		try {
-			ClosePointUtility closepoints = new ClostPointUtilityImpl();
+			ClosePointFinder closepoints = new ClosePointFinderImpl();
 			closepoints.closePoints(args[0], Integer.parseInt(args[1]));
 		} catch (Exception e) {
 			Logger.getLogger().severe("Exception while processing file " + args[0]);			

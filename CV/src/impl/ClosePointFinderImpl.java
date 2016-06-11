@@ -5,15 +5,15 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import src.ClosePointUtility;
+import src.ClosePointFinder;
 import src.FileUtility;
 
-public class ClostPointUtilityImpl implements ClosePointUtility {
+public class ClosePointFinderImpl implements ClosePointFinder {
 
 	private final static java.util.logging.Logger logger = Logger.getLogger();
 
 	private static FileUtility fileUtility = new FileUtilityImpl();
-	static long minFileSize = 1000000;
+	static long minFileSize = 1000000 ;//1MB
 
 	@Override
 	public void closePoints(String file, int levels) {
