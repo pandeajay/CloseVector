@@ -5,10 +5,11 @@ import java.util.StringTokenizer;
 import src.PointUtility;
 import src.model.Point;
 
-public class PointUtilityImpl implements PointUtility{
-	
+public class PointUtilityImpl implements PointUtility {
+
 	@Override
 	public Point getPoint(String pointRecord) {
+
 		try {
 			String fieldSeparator = " ";
 

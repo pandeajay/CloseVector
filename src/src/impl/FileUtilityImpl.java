@@ -34,8 +34,6 @@ public class FileUtilityImpl implements FileUtility {
 		if(file.length() == 0){
 			throw new InvalidFileException(fileName);
 		}	
-		
-
 	}
 
 	@Override
