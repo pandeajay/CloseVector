@@ -30,7 +30,7 @@ import src.model.Result;
  * @author apande
  *
  */
-public class TestClosePoints extends TestCase {
+public class ClosePointsTest extends TestCase {
 	String newLine = System.getProperty("line.separator");
 	ClosePointFinder closepoints = new ClosePointFinderImpl();
 	List<String> records = new ArrayList<String>();

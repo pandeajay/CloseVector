@@ -46,6 +46,7 @@ public class FileAndRecordsTest {
 		assertTrue(this.fileUtility.validateRecord("Vector_Id_01       2              4              5              6")); 
 		assertTrue(this.fileUtility.validateRecord("Vector_Id_")); 
 		assertTrue(this.fileUtility.validateRecord("Vector_Id_")); 
+		//TO-DO test for as many input possibilities as possible
 	}
 
 }

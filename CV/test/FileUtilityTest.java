@@ -21,7 +21,7 @@ import src.impl.FileUtilityImpl;
  * @author apande
  *
  */
-public class FileUtility {
+public class FileUtilityTest {
 
 	FileUtilityImpl fileUtility = new FileUtilityImpl();
 
