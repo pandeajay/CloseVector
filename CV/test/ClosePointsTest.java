@@ -3,8 +3,6 @@
  */
 package test;
 
-import static org.junit.Assert.*;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -12,19 +10,13 @@ import java.io.FileWriter;
 import junit.framework.*;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map.Entry;
-
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import src.ClosePointFinder;
 import src.impl.ClosePointFinderImpl;
-import src.model.Result;
 
 /**
  * @author apande
