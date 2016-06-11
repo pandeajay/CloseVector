@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import src.InvalidFileException;
+import exception.InvalidFileException;
 import src.impl.FileUtilityImpl;
 
 /**

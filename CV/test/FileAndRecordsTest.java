@@ -12,10 +12,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import exception.InvalidFileException;
 import src.ClosePointFinder;
 import src.impl.ClosePointFinderImpl;
 import src.FileUtility;
-import src.InvalidFileException;
+
 import src.impl.FileUtilityImpl;
 
 public class FileAndRecordsTest {

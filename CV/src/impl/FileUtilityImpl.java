@@ -9,8 +9,9 @@ import java.io.RandomAccessFile;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import exception.InvalidFileException;
 import src.FileUtility;
-import src.InvalidFileException;
+
 
 public class FileUtilityImpl implements FileUtility {
 	

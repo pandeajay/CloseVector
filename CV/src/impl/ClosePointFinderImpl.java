@@ -27,8 +27,7 @@ public class ClosePointFinderImpl implements ClosePointFinder {
 			this.logger.info("Validated file : " + file);
 
 			// start processing files with three threads if file size is more
-			// than
-			// 1 MB
+			// than 1 MB
 			if (new RandomAccessFile(file, "r").length() > minFileSize) {
 				ExecutorService executor = Executors.newFixedThreadPool(3);
 				for (int i = 0; i < 3; i++) {
@@ -51,8 +50,10 @@ public class ClosePointFinderImpl implements ClosePointFinder {
 
 			this.logger.info(
 					"Processed file " + file + " to " + file.substring(0, file.lastIndexOf('.')).concat("output.txt"));
+			
 		} catch (Exception ex) {
 			logger.severe("Exception occured while processing file " + file + " Exception : " + ex);
+			
 			System.out.println("Error occured while processing file " + file + " Error is " + ex.getMessage());
 		}
 	}
