@@ -15,6 +15,7 @@ public class ClosePointFinderImpl implements ClosePointFinder {
 	private static FileUtility fileUtility = new FileUtilityImpl();
 	static long minFileSize = 1000000 ;//1MB
 
+	//find close points
 	@Override
 	public void closePoints(String file, int levels) {
 		try {
@@ -45,6 +46,7 @@ public class ClosePointFinderImpl implements ClosePointFinder {
 				t.start();
 				t.join();
 			}
+			
 			System.out.println("\r" + "Processed 100% records for a file " + file + " . Results are in file "
 					+ file.substring(0, file.lastIndexOf('.')).concat("output.txt"));
 
@@ -52,8 +54,7 @@ public class ClosePointFinderImpl implements ClosePointFinder {
 					"Processed file " + file + " to " + file.substring(0, file.lastIndexOf('.')).concat("output.txt"));
 			
 		} catch (Exception ex) {
-			logger.severe("Exception occured while processing file " + file + " Exception : " + ex);
-			
+			logger.severe("Exception occured while processing file " + file + " Exception : " + ex);			
 			System.out.println("Error occured while processing file " + file + " Error is " + ex.getMessage());
 		}
 	}

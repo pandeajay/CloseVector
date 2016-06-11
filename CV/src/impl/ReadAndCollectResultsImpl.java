@@ -19,10 +19,11 @@ import java.util.StringTokenizer;
 import src.FileUtility;
 import src.PointUtility;
 import src.ReadAndCollectresults;
+import src.ResultWriter;
 import src.model.Point;
 import src.model.Result;
 
-class ReadAndCollectResultsImpl implements Runnable,ReadAndCollectresults {
+class ReadAndCollectResultsImpl implements Runnable, ReadAndCollectresults {
 	RandomAccessFile pointsFromFirstHalfOfFile = null;
 	RandomAccessFile pointsFromSecondHalfOfFile = null;
 	int levels = 0;
@@ -36,12 +37,14 @@ class ReadAndCollectResultsImpl implements Runnable,ReadAndCollectresults {
 
 	// end of a file to be processed for this thread
 	private long stop;
-	
 
 	FileUtility fileUtility = new FileUtilityImpl();
 
 	PointUtility pointUtility = new PointUtilityImpl();
 
+	ResultWriter resultWriter = new ResultWriterImpl();
+
+	// for multi threaded
 	ReadAndCollectResultsImpl(String file, int closeLevel, int index) throws IOException, FileNotFoundException {
 		this.levels = closeLevel;
 		this.file = file;
@@ -56,6 +59,7 @@ class ReadAndCollectResultsImpl implements Runnable,ReadAndCollectresults {
 
 	}
 
+	// for single threaded
 	ReadAndCollectResultsImpl(String file, int closeLevel) throws IOException, FileNotFoundException {
 		this.levels = closeLevel;
 		this.file = file;
@@ -75,7 +79,7 @@ class ReadAndCollectResultsImpl implements Runnable,ReadAndCollectresults {
 		List<String> pointsFromSecondHalf = new ArrayList<String>();
 
 		// this structure holds result for each run.
-		//stores close points for each point from first half for minChunk
+		// stores close points for each point from first half for minChunk
 		Map<String, List<Result>> results = new HashMap<String, List<Result>>();
 
 		// read minimumChunk line from the start of a file till the dedicated
@@ -127,10 +131,10 @@ class ReadAndCollectResultsImpl implements Runnable,ReadAndCollectresults {
 				// If level is 3 then it means only 3 results will be stored at
 				// a time for each point from first half of a file.
 				// Repeat the process for next 1000 records from second half of
-				// a file till all records are over from second half of a file 
-				//and compared against the records from next 1000 records from
+				// a file till all records are over from second half of a file
+				// and compared against the records from next 1000 records from
 				// second half of a file
-				findClosePoints(pointsFromFirstHalf, pointsFromSecondHalf, results );
+				findClosePoints(pointsFromFirstHalf, pointsFromSecondHalf, results);
 			}
 
 			// now you got results for first 100 records from first half of a
@@ -140,15 +144,17 @@ class ReadAndCollectResultsImpl implements Runnable,ReadAndCollectresults {
 			// use this for next 1000 records from first half of a file
 			results.clear();
 
-			System.out.println(
-					"\r" + "For thread " + Thread.currentThread().getName() + " Processed " + bytesProcessed * 100 / pointsFromFirstHalfOfFile.getFilePointer() + " % ");
+			System.out.println("\r" + "For thread " + Thread.currentThread().getName() + " Processed "
+					+ bytesProcessed * 100 / pointsFromFirstHalfOfFile.getFilePointer() + " % ");
 		}
 	}
-	
-	//this finds close points till level
-	//this is done in incremental style and hence file size is not a limit. Also each thread performs 30% of procesing of points
-	//from first half
-	void findClosePoints(List<String> pointsFromFirstHalf, List<String> pointsFromSecondHalf, Map<String, List<Result>> results ){
+
+	// this finds close points till level
+	// this is done in incremental style and hence file size is not a limit.
+	// Also each thread performs 30% of procesing of points
+	// from first half
+	void findClosePoints(List<String> pointsFromFirstHalf, List<String> pointsFromSecondHalf,
+			Map<String, List<Result>> results) {
 
 		for (String vector : pointsFromFirstHalf) {
 			Point pointFromFirstHalf = pointUtility.getPoint(vector);
@@ -156,20 +162,21 @@ class ReadAndCollectResultsImpl implements Runnable,ReadAndCollectresults {
 				Point pointFromSecondHalf = pointUtility.getPoint(midVector);
 
 				if (pointFromFirstHalf == null || pointFromSecondHalf == null) {
-					//skip it and move to next
+					// skip it and move to next
 					continue;
 				}
 
-				//calculate distance 
-				double dist = getDistance(pointFromFirstHalf, pointFromSecondHalf);
+				// calculate distance
+				double dist = pointUtility.getDistance(pointFromFirstHalf, pointFromSecondHalf);
 
 				if (results.containsKey(pointFromFirstHalf.getName())
 						&& results.get(pointFromFirstHalf.getName()).size() == this.levels) {
-					
-					//this is the case where we need to see least points from each run
-					//as level specified by user is reached
-					
-					//this list always stores least distance points
+
+					// this is the case where we need to see least points from
+					// each run
+					// as level specified by user is reached
+
+					// this list always stores least distance points
 					List<Result> tempList = results.get(pointFromFirstHalf.getName());
 
 					// This is small list having few elements (3/4).
@@ -183,7 +190,8 @@ class ReadAndCollectResultsImpl implements Runnable,ReadAndCollectresults {
 						sortList(tempList);
 					}
 
-				} else if (results.containsKey(pointFromFirstHalf.getName()) && results.get(pointFromFirstHalf.getName()).size() > 0
+				} else if (results.containsKey(pointFromFirstHalf.getName())
+						&& results.get(pointFromFirstHalf.getName()).size() > 0
 						&& results.get(pointFromFirstHalf.getName()).size() < this.levels) {
 					List<Result> tempList = results.get(pointFromFirstHalf.getName());
 					Result result = new Result();
@@ -194,7 +202,7 @@ class ReadAndCollectResultsImpl implements Runnable,ReadAndCollectresults {
 					tempList.add(result);
 
 					// small list of 3-4 elements. hence no overhead.
-					//sort only once
+					// sort only once
 					if (tempList.size() == this.levels) {
 						sortList(tempList);
 					}
@@ -213,42 +221,16 @@ class ReadAndCollectResultsImpl implements Runnable,ReadAndCollectresults {
 		}
 	}
 
-	private double getDistance(Point point1, Point point2) {
-		double dist = 0.0;
-		try {
-			dist = Math.sqrt(Math.pow(point1.getFirstCoordinate() - point2.getFirstCoordinate(), 2)
-					+ Math.pow(point1.getSecondCoordinate() - point2.getSecondCoordinate(), 2)
-					+ Math.pow(point1.getThirdCoordinate() - point2.getThirdCoordinate(), 2)
-					+ Math.pow(point1.getFourthCoordinate() - point2.getFourthCoordinate(), 2));
-		} catch (Exception ex) {
-
-		}
-
-		return dist;
-	}
-
 	public void sortList(List<Result> resultList) {
 		Collections.sort(resultList, new ResultCmp());
 	}
 
-	public void randomAccess(String file) throws IOException {
-		RandomAccessFile ff = new RandomAccessFile(file, "r");
-		ff.seek(ff.length() / 2);
-		ff.getFilePointer();
-		ff.close();
-	}
-
+	// write results to a file
 	public void flushResults(String fileName, Map<String, List<Result>> resultList) throws IOException {
-
-		File file = new File(fileName.substring(0, fileName.lastIndexOf('.')).concat("output.txt"));
-
-		// creates a FileWriter Object
-		FileWriter writer = new FileWriter(file, true);
-		
 		// Writes the content to the file
 		Iterator<Entry<String, List<Result>>> it = resultList.entrySet().iterator();
-		
-		//format the result
+
+		// format the result
 		while (it.hasNext()) {
 			Entry<String, List<Result>> entry = it.next();
 			String str = "";
@@ -258,14 +240,12 @@ class ReadAndCollectResultsImpl implements Runnable,ReadAndCollectresults {
 				df.setMaximumFractionDigits(2);
 				str += result.getName() + "=" + df.format(result.getDist()) + "      ";
 			}
-
-			writer.append("For " + entry.getKey() + " : Close points are \t " + str + "  \n");
-			writer.flush();
-		}
-		writer.close();
+			resultWriter.flushResults(fileName, "For " + entry.getKey() + " : Close points are \t " +
+					  str + "  \n");
+		}		
 	}
 
-	//comparator for sorting results
+	// comparator for sorting results
 	class ResultCmp implements Comparator<Result> {
 
 		@Override
