@@ -13,6 +13,7 @@ import src.FileUtility;
 import src.InvalidFileException;
 
 public class FileUtilityImpl implements FileUtility {
+	
 	String newLine = System.getProperty("line.separator");
 
 	@Override
