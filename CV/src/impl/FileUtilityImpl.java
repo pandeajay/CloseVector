@@ -45,6 +45,8 @@ public class FileUtilityImpl implements FileUtility {
 				if (!record.startsWith("Vector_Id_")) {					
 					return false;
 				}
+				
+				//TO-DO: add more validations and delay integer parsing to avoid duplicate
 
 				return true;
 			}
