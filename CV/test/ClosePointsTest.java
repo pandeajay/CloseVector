@@ -127,6 +127,9 @@ public class ClosePointsTest extends TestCase {
 			}
 			assertTrue(found);
 		}
+		
+		//TO-DO using some other third party libraries match the close points for each record to 
+		//verify accuracy of calculations. 
 	}
 
 }
