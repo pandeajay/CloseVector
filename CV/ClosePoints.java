@@ -18,7 +18,7 @@ public class ClosePoints {
 		//process
 		try {
 			ClosePointFinder closepoints = new ClosePointFinderImpl();
-			closepoints.closePoints(args[0], Integer.parseInt(args[1]));
+			closepoints.findClosePoints(args[0], Integer.parseInt(args[1]));
 		} catch (Exception e) {
 			Logger.getLogger().severe("Exception while processing file " + args[0]);			
 		}

@@ -74,7 +74,7 @@ public class ClosePointsTest extends TestCase {
 
 	@Test
 	public void testOutputFile() throws Exception {
-		closepoints.closePoints("test.txt", 3);
+		closepoints.findClosePoints("test.txt", 3);
 
 		// verify if result file is generated
 		File file = new File("testoutput.txt");
@@ -84,7 +84,7 @@ public class ClosePointsTest extends TestCase {
 
 	@Test
 	public void testNumberOfRecords() throws Exception {
-		closepoints.closePoints("test.txt", 3);
+		closepoints.findClosePoints("test.txt", 3);
 
 		// verify if result file is generated
 		BufferedReader br = new BufferedReader(new FileReader("testoutput.txt"));
@@ -100,7 +100,7 @@ public class ClosePointsTest extends TestCase {
 
 	@Test
 	public void testResult() throws Exception {
-		closepoints.closePoints("test.txt", 3);
+		closepoints.findClosePoints("test.txt", 3);
 
 		// verify if result file is generated
 		BufferedReader br = new BufferedReader(new FileReader("testoutput.txt"));

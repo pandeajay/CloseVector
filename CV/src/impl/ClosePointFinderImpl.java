@@ -17,7 +17,7 @@ public class ClosePointFinderImpl implements ClosePointFinder {
 
 	//find close points
 	@Override
-	public void closePoints(String file, int levels) {
+	public void findClosePoints(String file, int levels) {
 		try {
 
 			logger.info("Processing file : " + file + " for level " + levels);
