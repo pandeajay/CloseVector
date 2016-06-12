@@ -2,21 +2,11 @@ package test;
 
 import static org.junit.Assert.*;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import exception.InvalidFileException;
-import src.ClosePointFinder;
-import src.impl.ClosePointFinderImpl;
-import src.FileUtility;
-
 import src.impl.FileUtilityImpl;
 
 public class FileAndRecordsTest {

@@ -1,5 +1,8 @@
 package src.impl;
 
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.LineNumberReader;
 import java.io.RandomAccessFile;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -21,6 +24,7 @@ public class ClosePointFinderImpl implements ClosePointFinder {
 		try {
 
 			logger.info("Processing file : " + file + " for level " + levels);
+			
 
 			// validate the file
 			fileUtility.validateFile(file);
@@ -58,4 +62,5 @@ public class ClosePointFinderImpl implements ClosePointFinder {
 			System.out.println("Error occured while processing file " + file + " Error is " + ex.getMessage());
 		}
 	}
+
 }

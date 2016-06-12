@@ -75,7 +75,7 @@ public class ClosePointsTest extends TestCase {
 	@Test
 	public void testOutputFile() throws Exception {
 		closepoints.closePoints("test.txt", 3);
-		
+
 		// verify if result file is generated
 		File file = new File("testoutput.txt");
 		System.out.println("file.exists() " + file.exists());
@@ -94,6 +94,7 @@ public class ClosePointsTest extends TestCase {
 			count++;
 			line = br.readLine();
 		}
+		br.close();
 		assertEquals(count, this.records.size() / 2);
 	}
 
@@ -105,31 +106,34 @@ public class ClosePointsTest extends TestCase {
 		BufferedReader br = new BufferedReader(new FileReader("testoutput.txt"));
 		List<String> results = new ArrayList<String>();
 		String line = br.readLine();
-		
+
 		while (line != null) {
 			results.add(line);
 			line = br.readLine();
 		}
-		
-		//verify that all records from first half are collected for in second half
+
+		// verify that all records from first half are collected for in second
+		// half
 		for (int i = 0; i < 5; i++) {
 			boolean found = false;
 			for (String result : results) {
-				System.out.println("records.get(i).substring(0, records.get(i).indexOf(' '))" +
-								records.get(i).substring(0, records.get(i).indexOf(' ')));
-				System.out.println("result.substring(0, result.indexOf(' '))" +
-						result.substring(4, result.indexOf(':') -1));
+				System.out.println("records.get(i).substring(0, records.get(i).indexOf(' '))"
+						+ records.get(i).substring(0, records.get(i).indexOf(' ')));
+				System.out.println(
+						"result.substring(0, result.indexOf(' '))" + result.substring(4, result.indexOf(':') - 1));
 				if (records.get(i).substring(0, records.get(i).indexOf(' '))
-						.equals(result.substring(4, result.indexOf(':') -1))) {
+						.equals(result.substring(4, result.indexOf(':') - 1))) {
 					found = true;
 					break;
 				}
 			}
 			assertTrue(found);
 		}
-		
-		//TO-DO using some other third party libraries match the close points for each record to 
-		//verify accuracy of calculations. 
+		br.close();
+
+		// TO-DO using some other third party libraries match the close points
+		// for each record to
+		// verify accuracy of calculations.
 	}
 
 }

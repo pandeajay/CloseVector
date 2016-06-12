@@ -2,6 +2,7 @@ package src.impl;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -30,7 +31,7 @@ class ReadAndCollectResultsImpl implements Runnable, ReadAndCollectresults {
 	String file = "";
 
 	// minimum chunk to be processed at a time
-	int minimumChunk = 500;
+	int minimumChunk = 100;
 
 	// start of a file to be processed for this thread
 	private long start;
@@ -54,8 +55,6 @@ class ReadAndCollectResultsImpl implements Runnable, ReadAndCollectresults {
 		this.stop = this.start + (halfFileSize / 3) - 1;
 		this.pointsFromFirstHalfOfFile.seek(start);
 		Thread.currentThread().setName("" + index);
-		System.out.println("Thread start = " + this.start + " stop = " + this.stop + " for thread "
-				+ Thread.currentThread().getName());
 
 	}
 
@@ -93,7 +92,7 @@ class ReadAndCollectResultsImpl implements Runnable, ReadAndCollectresults {
 			pointsFromSecondHalfOfFile = null;
 			pointsFromSecondHalfOfFile = new RandomAccessFile(file, "r");
 			pointsFromSecondHalfOfFile.seek(pointsFromSecondHalfOfFile.length() / 2);
-
+			
 			// get minimumChunk of records from first half of a file
 			// In case of exception or invalid record, skip that record
 			for (int i = 0; i < minimumChunk && pointsFromFirstHalfOfFile.getFilePointer() < this.stop; i++) {
@@ -144,8 +143,11 @@ class ReadAndCollectResultsImpl implements Runnable, ReadAndCollectresults {
 			// use this for next 1000 records from first half of a file
 			results.clear();
 
+			//progress monitor
+			DecimalFormat df = new DecimalFormat();
+			df.setMaximumFractionDigits(2);
 			System.out.println("\r" + "For thread " + Thread.currentThread().getName() + " Processed "
-					+ bytesProcessed * 100 / pointsFromFirstHalfOfFile.getFilePointer() + " % ");
+					+ df.format(bytesProcessed * 100.0 / (this.stop - this.start)) + " % ");
 		}
 	}
 
